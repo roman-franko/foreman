@@ -66,6 +66,11 @@ describe Foreman::Process do
       process.exec(:env => { "FOO" => "bar" })
     end
 
+    it "has a pid" do
+      process = Foreman::Process.new(resource_path("bin/test"))
+      run(process)
+      expect(process.pid).to be_kind_of(Integer)
+    end
   end
 
 end

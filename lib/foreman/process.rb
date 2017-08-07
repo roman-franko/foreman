@@ -5,6 +5,7 @@ class Foreman::Process
 
   attr_reader :command
   attr_reader :env
+  attr_reader :pid
 
   # Create a Process
   #
@@ -49,9 +50,9 @@ class Foreman::Process
     env    = @options[:env].merge(options[:env] || {})
     output = options[:output] || $stdout
     runner = "#{Foreman.runner}".shellescape
-    
+
     Dir.chdir(cwd) do
-      Process.spawn env, expanded_command(env), :out => output, :err => output
+      @pid = Process.spawn env, expanded_command(env), :out => output, :err => output
     end
   end
 
